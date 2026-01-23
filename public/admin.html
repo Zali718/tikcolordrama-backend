@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <style>
+    body { font-family: Arial; padding: 30px; }
+    input, button { padding: 10px; margin: 5px 0; width: 100%; }
+    button { background: green; color: white; border: none; }
+  </style>
+</head>
+<body>
+
+<h2>🎬 Add New Episode</h2>
+
+<input id="dramaId" placeholder="Drama ID (e.g. 1)">
+<input id="ep" placeholder="Episode No (e.g. 3)">
+<input id="title" placeholder="Episode Title">
+<input id="video" placeholder="Google Drive Preview Link">
+
+<button onclick="addEpisode()">Add Episode</button>
+
+<p id="msg"></p>
+
+<script>
+function addEpisode() {
+  fetch("/api/add-episode", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      dramaId: document.getElementById("dramaId").value,
+      ep: document.getElementById("ep").value,
+      title: document.getElementById("title").value,
+      video: document.getElementById("video").value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("msg").innerText = data.message || "Done";
+  })
+  .catch(() => {
+    document.getElementById("msg").innerText = "Error";
+  });
+}
+</script>
+
+</body>
+</html>
