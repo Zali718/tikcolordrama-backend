@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+  <style>
+    body { font-family: Arial; padding: 50px; text-align: center; }
+    input, button { padding: 10px; margin: 10px; width: 200px; }
+    button { background: green; color: white; border: none; }
+    #msg { color: red; }
+  </style>
+</head>
+<body>
+
+<h2>Admin Login</h2>
+
+<input id="username" placeholder="Username"><br>
+<input id="password" placeholder="Password" type="password"><br>
+<button onclick="login()">Login</button>
+
+<p id="msg"></p>
+
+<script>
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  fetch("/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success) {
+      window.location.href = "/admin/admin.html";
+    } else {
+      document.getElementById("msg").innerText = data.message;
+    }
+  })
+  .catch(() => {
+    document.getElementById("msg").innerText = "Error connecting to server";
+  });
+}
+</script>
+
+</body>
+</html>
