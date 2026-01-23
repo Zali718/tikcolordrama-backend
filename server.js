@@ -1,33 +1,28 @@
-const express = require("express");
-const cors = require("cors");
-const dramas = require("./data/dramas.json");
+const fs = require("fs");
+const path = require("path");
 
-const app = express();
-const PORT = 5000;
+// ADMIN PANEL STATIC
+app.use("/admin", express.static("public"));
 
-app.use(cors());
-app.use(express.json());
+// ADD EPISODE API
+app.post("/api/add-episode", (req, res) => {
+  const { dramaId, ep, title, video } = req.body;
 
-// HOME TEST
-app.get("/", (req, res) => {
-  res.send("🎬 TikColorDrama API is running");
-});
+  const filePath = path.join(__dirname, "data", "dramas.json");
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-// GET ALL DRAMAS
-app.get("/api/dramas", (req, res) => {
-  res.json(dramas);
-});
-
-// GET SINGLE DRAMA BY ID
-app.get("/api/dramas/:id", (req, res) => {
-  const drama = dramas.find(d => d.id == req.params.id);
+  const drama = data.find(d => d.id == dramaId);
   if (!drama) {
-    return res.status(404).json({ message: "Drama not found" });
+    return res.status(404).json({ error: "Drama not found" });
   }
-  res.json(drama);
-});
 
-// SERVER START
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  drama.episodes.push({
+    ep: Number(ep),
+    title,
+    video
+  });
+
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+
+  res.json({ success: true, message: "Episode added successfully" });
 });
