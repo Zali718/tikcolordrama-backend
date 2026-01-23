@@ -1,27 +1,14 @@
 [
   {
     "id": 1,
-    "title": "Love After Marriage",
-    "image": "https://via.placeholder.com/300x400",
+    "title": "TikColorDrama",
+    "thumbnail": "https://via.placeholder.com/300x420",
+    "description": "Nikki Aur Jadui Bubble",
     "episodes": [
       {
         "ep": 1,
-        "video": "https://www.terabox.com/sharing/link?surl=XXXX"
-      },
-      {
-        "ep": 2,
-        "video": "https://www.terabox.com/sharing/link?surl=YYYY"
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "title": "Broken Promise",
-    "image": "https://via.placeholder.com/300x400",
-    "episodes": [
-      {
-        "ep": 1,
-        "video": "https://www.terabox.com/sharing/link?surl=ZZZZ"
+        "title": "Episode 1",
+        "video": "https://drive.google.com/file/d/1nWfG8LWHhPBk1mM5y5xvbDkdpKd1VTyp/view?usp=drive_link"
       }
     ]
   }
